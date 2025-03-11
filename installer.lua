@@ -32,7 +32,7 @@ local function install()
   for i, file in ipairs(files) do
     local content, err = downloadFile(file)
     if not content then return false, err end
-    local file = fs.open(file, "w")
+    local file = fs.open(projectName .. "/" .. file, "w")
     if not file then return false, "Failed to open file for writing" end
     file.write(content)
     file.close()
@@ -46,3 +46,5 @@ print("This may take a while")
 local success, err = install()
 if not success then error(err) end
 print("Installation successful")
+
+fs.delete(shell.getRunningProgram())
